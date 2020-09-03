@@ -50,7 +50,7 @@ if 1<= T <=50: # T의 조건
 
                 index_freq = [0] * len(x)
                 if x.count(max(x)) != 1: # 최빈값을 가지는 숫자가 하나가 아니라면
-                    for k in range(len(x)): # 도메인 갯수만큼 반복
+                    for k in range(len(x)): # 인덱스 갯수만큼 반복
                         if x[k] == max(x): # 만약 빈도 리스트(x)의 k-1번째 값이 가장 큰 빈도 값(max)라면
                             result[j] = [set_a[k], max(x)] # 가장 큰 빈도값을 갖는 값중 가장 큰 값(set_a[k])과 가장 큰 빈도 값을 반환
                 else:
