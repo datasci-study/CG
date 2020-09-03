@@ -50,16 +50,12 @@ if 1<= T <=50: # T의 조건
 
                 index_freq = [0] * len(x)
                 if x.count(max(x)) != 1: # 최빈값을 가지는 숫자가 하나가 아니라면
-                    for k in range(len(x)-1, -1, -1): # x의 갯수 이하, -1 초과 까지 -1씩 해가며
-                        pass 
-                    result[j] = [1, max(x)]
-                    print(result[j])
+                    for k in range(len(x)): # 도메인 갯수만큼 반복
+                        if x[k] == max(x): # 만약 빈도 리스트(x)의 k-1번째 값이 가장 큰 빈도 값(max)라면
+                            result[j] = [set_a[k], max(x)] # 가장 큰 빈도값을 갖는 값중 가장 큰 값(set_a[k])과 가장 큰 빈도 값을 반환
                 else:
                     # 결과에 가장 빈도수가 많은 수(max(x))의 위치(x.index)를 반환받아 가장 빈도수 높은 set_a의 숫자를 구함.
                     result[j] = [set_a[x.index(max(x))], max(x)]
-                print("a", set_a)
-                print("x", x)
-                print("set_a[x.index(max(x))]", set_a[x.index(max(x))])
 
     # 요구 양식에 맞게 출력
     for i in range(1, T+1):
