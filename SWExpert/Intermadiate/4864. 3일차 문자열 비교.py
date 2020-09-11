@@ -28,29 +28,34 @@ TTXGZYJZXZTIBSDGWQLW
 #2 0
 #3 1
 '''
-T = int(input())
-for j in range(T):
-    str1 = input()
-    str2 = input()
+T = int(input()) # T 입력
+for j in range(T): # T 회 반복 입력
+    str1 = input() # 비교문자열
+    str2 = input() # 피비교문자열
     N = len(str1)
     M = len(str2)
+    count = 0 # 일치 문자열 갯수 카운트
+    new_index = N-1 # str1과 비교하기위해 str2를 같은 크기로 슬라이싱하기 위해 선언
 
-    idx = 0
-    count = 0
-    new_index = N-1
-    while new_index < M: 
-        if str2[new_index] != str1[N-1]:
-            same_letter = 0
-            for i in str1[:-1]:
-                if i in str2[(new_index+1 - N):(new_index+1)]:
-                    idx = N - (str1.index(i)+1)
-                    same_letter += 1
-                elif same_letter == 0:
-                    idx = N
-            new_index += idx
+    while new_index < M: # 슬라이싱 인덱스가 str2의 길이를 넘어가면 종료
+        same_letter = 0 # 같은 문자가 있는지 여부
+        idx = 0 # 보이어-무어 알고리즘에 따라 몇 개의 위치를 이동할지 결정
+        order = -1 # str1의 각 문자들의 위치를 결정하기 위한 변수, index("A")로 하면 ABA의 경우 1만을 반환하기에 만들어준 변수
+        # str1과 같은 크기로 자른 str2가 일치하면
+        if str2[(new_index+1 - N):(new_index+1)] == str1: 
+            count += 1 # 하나 세고
+            idx = N # str1 크기만큼 우측이동
+        # str1과 같은 크기로 자른 str2가 일치하지 않으면
         else:
-            if str2[(new_index+1 - N):(new_index+1)] == str1:
-                count += 1
-            new_index += N
-
+            # str1의 마지막 문자빼고 비교
+            for i in str1[:-1]: 
+                order += 1 # str1의 각 문자요소들의 index를 저장
+                # str1의 order번째 요소가 슬라이싱된 str2에 있다면
+                if i in str2[(new_index+1 - N):(new_index+1)]:
+                    idx = N-1 - order # str2상에서 N-1 - order만큼 우측이동해서 다시 비교
+                    same_letter += 1 # 같은 문자가 존재한다는 것을 알려줌
+                # 같은 문자가 하나도 발견되지 않았다면
+                elif same_letter == 0:
+                    idx = N # N만큼 그냥 이동해
+        new_index += idx # 오른쪽으로 idx만큼 이동해서 다시 슬라이싱
     print("#{0} {1}".format(j+1, count))
