@@ -29,8 +29,8 @@ TTXGZYJZXZTIBSDGWQLW
 #3 1
 '''
 T = 1
-str1 = "ABCDA"
-str2 = "ABCABCDAABCDDABCDA"
+str1 = "ZYJZXZTIBSDG"
+str2 = "TTXGZYJZXZTIBSDGWQLW"
 N = len(str1)
 M = len(str2)
 print("N, M : ", N, M)
@@ -40,10 +40,12 @@ count = 0
 new_index = N-1
 while new_index < M: 
     print("new_index : ", new_index)
-    print()
     print("원래문장 : ", str1)
+    print("비교문장 : ", str2)
+    print()
     if str2[new_index] != str1[N-1]:
-        for i in str1:
+        same_letter = 0
+        for i in str1[:-1]:
             if i in str2[(new_index+1 - N):(new_index+1)]:
                 print("for원래문장 : ", str1)
                 print("for비교문장 : ", str2[(new_index+1 - N):(new_index+1)])
@@ -51,10 +53,16 @@ while new_index < M:
                 idx = N - (str1.index(i)+1)
                 print("idx : ", idx)
                 print()
+                same_letter += 1
+            elif same_letter == 0:
+                idx = N
         new_index += idx
     else:
+        print("str1 : ", str1)
+        print("str2 : ", str2[(new_index+1 - N):(new_index+1)])
+        if str2[(new_index+1 - N):(new_index+1)] == str1:
+            count += 1
         new_index += N
-        count += 1
     print("new_index : ", new_index)
     print("count : ", count)
     print()
