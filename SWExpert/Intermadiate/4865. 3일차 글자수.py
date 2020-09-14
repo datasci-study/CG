@@ -24,4 +24,12 @@ TTXGZYJZXZTIBSDGWQLW
 #2 1
 #3 3
 '''
-
+T = int(input()) # T 받기
+for i in range(T): # T 회 반복
+    str1 = input() # str1 입력
+    str2 = input() # str2 입력
+    str1_index = list(set(str1)) # str1의 인덱스
+    temp = [] # 등장 횟수 저장할 리스트
+    for j in str1_index: # str1의 인덱스가
+        temp.append(str2.count(j)) # str2에 몇번 카운팅 되는지
+    print("#{0} {1}".format(i+1, max(temp) )) # 요구에 맞게 프린트
