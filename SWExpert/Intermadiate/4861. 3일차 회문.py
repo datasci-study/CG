@@ -62,3 +62,42 @@ FIKQJTQDYLGMMWMEGRUZ
 #2 MWOIVVIOWM
 #3 TLMMHOOOHMMLT
 '''
+
+'''
+3
+10 10
+GOFFAKWFSM
+OYECRSLDLQ
+UJAJQVSYYC
+JAEZNNZEAJ
+WJAKCGSGCF
+QKUDGATDQL
+OKGPFPYRKQ
+TDCXBMQTIO
+UNADRPNETZ
+ZATWDEKDQF
+'''
+import numpy as np
+
+T = 1
+for t in range(T):
+    N = 10 # 10 by 10
+    M = 10 # 회문 길이
+    grid = [list(map(str, input())) for i in range(N)]
+    grid_T = np.transpose(grid)
+    print(grid)
+    print()
+    print(grid_T[0][1:4])
+    temp = []
+    
+    for i in range(N):
+
+        for s in range(N-M+1):
+            if grid[i][s : M + s] == grid[i][s : M + s][::-1]:
+                temp.append(grid[i][s : M + s])
+
+        for s in range(N-M+1):
+            if grid_T[i][s : M + s] == grid_T[i][s : M + s][::-1]:
+                temp.append(grid_T[i][s : M + s])
+    print(temp)
+
