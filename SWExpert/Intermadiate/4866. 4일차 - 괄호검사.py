@@ -26,7 +26,6 @@ print('#{} {}'.format(tc, find())
 def well_closed(string):
     brackets = {"left" : ['(', '{', '['], "right" : [')', '}', ']']}
     lst = []
-
     for i in string:
         if i in (brackets['left'] + brackets['right']):
             lst.append(i)
