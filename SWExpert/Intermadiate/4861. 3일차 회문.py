@@ -86,14 +86,12 @@ for t in range(T):
     grid_T = np.transpose(grid).tolist() # 전치 격자, 세로 검색용 (전치행렬로 바꿔 가로 검색의 알고리즘을 그대로 적용)
     # grid_T가 np.ndarray이기 때문에 list로 바꿔줘야 진행이 된다. 이유는 모름. R에 비해 index이 헷갈림
     temp = []
-
     # 가로 탐색
     for i in range(N):
         for s in range(N-M+1):
             if grid[i][s : M + s] == grid[i][s : M + s][::-1]:
                 temp.append(''.join(grid[i][s : M + s]))
                 break
-    
     # 세로 탐색
     for i in range(N):
         for s in range(N-M+1):
