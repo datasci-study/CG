@@ -93,6 +93,7 @@ for t in range(T):
             if grid[i][s : M + s] == grid[i][s : M + s][::-1]:
                 temp.append(''.join(grid[i][s : M + s]))
                 break
+    
     # 세로 탐색
     for i in range(N):
         for s in range(N-M+1):
