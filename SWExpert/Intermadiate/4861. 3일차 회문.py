@@ -78,24 +78,31 @@ UNADRPNETA
 ZATWDEKDQA
 '''
 import numpy as np
-
-T = int(input())
-for t in range(T):
-    N, M = list(map(int, input().split())) # N : 10 by 10,  M : 회문 길이
-    grid = [list(map(str, input())) for i in range(N)] # 원래 격자, 가로 검색용
-    grid_T = np.transpose(grid).tolist() # 전치 격자, 세로 검색용 (전치행렬로 바꿔 가로 검색의 알고리즘을 그대로 적용)
-    # grid_T가 np.ndarray이기 때문에 list로 바꿔줘야 진행이 된다. 이유는 모름. R에 비해 index이 헷갈림
+# 가로 탐색
+def Searching_H(N, M, grid):
     temp = []
-    # 가로 탐색
     for i in range(N):
         for s in range(N-M+1):
             if grid[i][s : M + s] == grid[i][s : M + s][::-1]:
                 temp.append(''.join(grid[i][s : M + s]))
-                break
-    # 세로 탐색
+                return temp[0] # 회문을 찾으면 미련없이 함수 종료하고 return
+# 세로 탐색
+def Searching_V(N, M, grid):
+    temp = []
+    grid = np.array(grid)
     for i in range(N):
         for s in range(N-M+1):
-            if grid_T[i][s : M + s] == grid_T[i][s : M + s][::-1]:
-                temp.append(''.join(grid_T[i][s : M + s]))
-                break
-    print("#{0} {1}".format(t+1, temp[0]))
+            comparison = grid[s : M + s, i] == grid[s : M + s, i][::-1]
+            equal = comparison.all()
+            if equal:
+                arr = grid[s : M + s, i].tolist()
+                temp.append(''.join(arr))
+                return temp[0]
+                
+T = int(input())
+for t in range(T):
+    N, M = list(map(int, input().split())) # N : 10 by 10,  M : 회문 길이
+    grid = [list(map(str, input())) for i in range(N)] # 원래 격자, 가로 검색용
+    temp = Searching_H(N, M, grid)
+    if temp is None: temp = Searching_V(N, M, grid)
+    print("#{0} {1}".format(t+1, temp))
