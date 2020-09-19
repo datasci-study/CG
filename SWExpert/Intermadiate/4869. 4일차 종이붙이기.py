@@ -22,7 +22,16 @@
 #2 21
 #3 85
 '''
+def HowManyCases(n):
+    if n == 1:
+        return 1
+    elif n == 2:
+        return 3
+    else:
+        # 점화식 a(n) = a(n-1) + 2a(n-2)
+        return HowManyCases(n-1) + 2 * HowManyCases(n-2)
 
-T = 1
+T = int(input()) 
 for t in range(T):
-    N = 30
+    N = int(input()) // 10 
+    print("#{0} {1}".format(t+1, HowManyCases(N)))
