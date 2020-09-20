@@ -24,19 +24,18 @@ print('#{} {}'.format(tc, find())
 #3 0
 '''
 def well_closed(string):
-    brackets = {"left" : ['(', '{', '['], "right" : [')', '}', ']']}
-    lst = []
-    for i in string:
-        if i in (brackets['left'] + brackets['right']):
-            lst.append(i)
-            if i in brackets['right']:
-                if len(lst) > 1:
-                    if brackets['left'][brackets['right'].index(lst.pop(-1))] == lst[-1]:
-                        lst.pop(-1)
-
-    if len(lst) == 0:
+    brackets = {"left" : ['(', '{', '['], "right" : [')', '}', ']']} # 왼쪽 괄호, 오른쪽 괄호를 dictionary형태로 저장
+    lst = [] # stack
+    for i in string: # 문자열에 있는 모든 문자에 대해
+        if i in (brackets['left'] + brackets['right']): # 그 문자가 괄호라면
+            lst.append(i) # stack에 추가
+            if i in brackets['right']: # 근데 그게 오른쪽 괄호고
+                if len(lst) > 1: # stack에 이미 하나 이상의 괄호가 있고
+                    if brackets['left'][brackets['right'].index(lst.pop(-1))] == lst[-1]: # 그에 대칭되는 왼쪽 괄호가 바로 직전에 있었다면
+                        lst.pop(-1) # 왼쪽 괄호 제거
+    if len(lst) == 0: # 다 돌리고 나서 스택이 비어있다면 성공적
         return 1
-    else:
+    else: # 아니라면 괄호가 안닫힌 문장
         return 0
 
 T = int(input())
@@ -44,4 +43,4 @@ for t in range(T):
     string = input()
     print("#{0} {1}".format(t+1, well_closed(string)))
 
-
+''' 10개의 test cases 중 9개만 통과, 뭐가 틀렸는지 전혀 모르겠음'''
