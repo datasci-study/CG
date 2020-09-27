@@ -74,10 +74,53 @@ E개의 줄 이후에는 경로의 존재를 확인할 출발 노드 S와 도착
 1 9
 '''
 
+def DSF(v):
+    print("visited in DSF Before: ", visited)
+    print("v in DSF : ", v)
+    visited[v] = False
+    print("visited in DSF After: ", visited)
+    print("visited[v] in DSF : ", visited[v])
+    print("graph[v] in DSF : ", graph[v])
+    for i in graph[v]:
+        print("i in DSF in for loop : ", i)
+        print("visited[i] : ", visited[i])
+        if visited[i]:
+            print('recurse DSF')
+            print()
+            DSF(i)
+
+T = int(input())
+for t in range(T):
+    V, E = map(int, input().split())
+    print("V : {0}, E : {1}".format(V, E))
+    stack= []
+    graph = [[] for _ in range(V+1)]
+    visited = [True for _ in range(V+1)]
+    for i in range(E):
+        a, b = map(int, input().split())
+        print("a : {0}, b : {1}".format(a, b))
+        graph[a].append(b) # 단방향 그래프이므로 하나만 추가한다.
+        print("graph : ", graph)
+        print("graph[a] : ", graph[a])
+    print("\n")
+    start, end = map(int, input().split())
+    print("Start : {0}, End : {1}".format(start, end))
+    print("\n")
+    DSF(start)
+    result = 1
+
+    print('\n')
+    #끝나는 노드를 못갔다면 0으로 결과를 바꾼다.
+    print("end : ", end)
+    print('visited : ', visited)
+    print('visited[end] : ', visited[end])
+    if visited[end]:
+        result = 0
+    print("result : ", result)
+    print("#{} {}".format(t+1, result))
 
 
-
-
+'''
 ### 마코프 체인 runtime error
 # V : 노드의 개수
 # E : 간선의 개수
@@ -90,7 +133,7 @@ for t in range(T):
     marcov_2 = marcov_1
     for i in range(E):
         x, y = list(map(int, input().split()))
-        marcov_1[x-1][y-1] = 1
+        marcov_1[x-1][y-1] = marcov_1[y-1][x-1] = 1
     
     S, G = list(map(int, input().split()))
     for i in range(V):
@@ -105,7 +148,4 @@ for t in range(T):
         marcov_2 = np.dot(marcov_1, marcov_2)
 
     print("#{0} {1}".format(t+1, result))
-        
-    
-    
-
+    '''
