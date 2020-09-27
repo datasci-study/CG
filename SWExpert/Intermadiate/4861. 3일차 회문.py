@@ -64,7 +64,7 @@ FIKQJTQDYLGMMWMEGRUZ
 '''
 
 '''
-3
+1
 10 10
 GOFFAKWFSA
 OYECRSLDLA
@@ -77,32 +77,36 @@ TDCXBMQTIB
 UNADRPNETA
 ZATWDEKDQA
 '''
-import numpy as np
 # 가로 탐색
 def Searching_H(N, M, grid):
     temp = []
-    for i in range(N):
-        for s in range(N-M+1):
-            if grid[i][s : M + s] == grid[i][s : M + s][::-1]:
-                temp.append(''.join(grid[i][s : M + s]))
+    for r in range(N):
+        for c in range(N-M+1):
+            if grid[r][c : c+ M] == grid[r][c : c + M][::-1]:
+                temp.append(grid[r][c : c + M])
                 return temp[0] # 회문을 찾으면 미련없이 함수 종료하고 return
 # 세로 탐색
 def Searching_V(N, M, grid):
     temp = []
-    grid = np.array(grid)
-    for i in range(N):
-        for s in range(N-M+1):
-            comparison = grid[s : M + s, i] == grid[s : M + s, i][::-1]
-            equal = comparison.all()
-            if equal:
-                arr = grid[s : M + s, i].tolist()
-                temp.append(''.join(arr))
+    for r in range(N-M+1): #세로방향 확인하기
+        for c in range(N):
+            col_lst=[]
+            for i in range(M):
+                col_lst.append(grid[r + i][c])#세로방향 문자열 만들기
+            if col_lst == col_lst[::-1]:
+                temp.append(''.join(col_lst))
                 return temp[0]
                 
 T = int(input())
 for t in range(T):
-    N, M = list(map(int, input().split())) # N : 10 by 10,  M : 회문 길이
-    grid = [list(map(str, input())) for i in range(N)] # 원래 격자, 가로 검색용
+    N, M = map(int, input().split()) # N : 10 by 10,  M : 회문 길이
+    
+    # 테이블 입력
+    grid = []
+    for _ in range(N):
+        grid.append(input()) # 원래 격자, 가로 검색용
+
+    # 탐색
     temp = Searching_H(N, M, grid)
     if temp is None: temp = Searching_V(N, M, grid)
     print("#{0} {1}".format(t+1, temp))
