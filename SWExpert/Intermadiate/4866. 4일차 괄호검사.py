@@ -31,8 +31,8 @@ def well_closed(string):
             lst.append(i) # stack에 추가
             if i in brackets['right']: # 근데 그게 오른쪽 괄호고
                 if len(lst) > 1: # stack에 이미 하나 이상의 괄호가 있고
-                    if brackets['left'][brackets['right'].index(lst.pop(-1))] == lst[-1]: # 그에 대칭되는 왼쪽 괄호가 바로 직전에 있었다면
-                        lst.pop(-1) # 왼쪽 괄호 제거
+                    if brackets['left'][brackets['right'].index(lst[-1])] == lst[-2]: # 그에 대칭되는 왼쪽 괄호가 바로 직전에 있었다면
+                        [lst.pop() for _ in range(2)] # 새로 받은 오른쪽 괄호랑 왼쪽 괄호 함께 제거
     if len(lst) == 0: # 다 돌리고 나서 스택이 비어있다면 성공적
         return 1
     else: # 아니라면 괄호가 안닫힌 문장
@@ -42,5 +42,3 @@ T = int(input())
 for t in range(T):
     string = input()
     print("#{0} {1}".format(t+1, well_closed(string)))
-
-''' 10개의 test cases 중 9개만 통과, 뭐가 틀렸는지 전혀 모르겠음'''
