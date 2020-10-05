@@ -38,54 +38,68 @@ NxN 크기의 미로에서 출발지에서 목적지에 도착하는 경로가 �
 21000
 01111
 00000
-4
-1131
-1101
-1101
-0002
 
 [출력 예]
 #1 1
 #2 1
 #3 0
 '''
+# maze에서 시작점 2 를 찾기 위한 함수
 def StartPoint(maze):
     for i in range(N):
         for j in range(N):
             if maze[i][j] == '2':
                 return [i, j]
 
+# Depth-First Search, 시작점의 x, y 좌표를 처음 받아옴
 def DFS(x, y):
     dx = [0, 0, 1, -1]
     dy = [1, -1, 0, 0]
 
+    # 방문 기록을 가진 visited
     if not visited[x][y]:
         visited[x][y] = True
 
+        # 우, 좌, 하, 상의 순서로 탐색을 실시
         for ddx, ddy in zip(dx, dy):
+            # x, y 좌표를 갱신하여
             x_p = x + ddx
             y_p = y + ddy
+            # 미로를 벗어나지 않는 범위에서
             if  0 <= x_p < N:
                 if 0 <= y_p < N:
+                    # 갱신된 x, y 좌표에 도착점 3이 있다면
                     if maze[x_p][y_p] == '3':
+                        # 이번 DFS는 True
                         return True
+                    # 갱신된 x, y 좌표가 이전에 방문한 적이 없다면
                     elif not visited[x_p][y_p]:
+                        # DFS로 한번더 가서 탐색
                         keep = DFS(x_p, y_p)
+                        # DFS 탐색에서 돌아와서 keep에 True가 있다면
+                        # 그 이전 DFS에 True 반환
                         if keep: return True
       
 T = int(input())
 for t in range(T):
     N = int(input())
+
+    # 방문 정보를 가진 행렬 선언
     visited = [[False for i in range(N)] for j in range(N)]
+
+    # 미로 생성
     maze = []
     for _ in range(N):
         maze.append(input())
+    # 시작점(2) 찾기
     x, y = StartPoint(maze)
-
+    # 미로에 1인 부분은 벽으로 미리 방문한 것(True)으로 가정하여 진행
     for i in range(N):
         for j in range(N):
             if maze[i][j] == '1':
                 visited[i][j] = True
+
+    # 입구(2)와 출구(3)를 이을 수 있다면 1 반환
     if DFS(x, y): result = 1
     else: result = 0
 
