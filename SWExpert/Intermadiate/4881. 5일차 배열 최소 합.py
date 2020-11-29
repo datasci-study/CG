@@ -37,3 +37,21 @@ NxN 배열에 숫자가 들어있다. 한 줄에서 하나씩 N개의 숫자를 
 #2 14
 #3 9
 '''
+def findMinSum():
+    minsum, temp = 9 * N, 9 * N
+    if temp < minsum:
+        return minsum
+    
+
+T = 1 # int(input())
+for t in range(T):
+    N = 3
+    a = []
+    # for _ in range(N):
+    #     a.append(list(map(int, input().split())))
+    a = [[2, 1, 2], [5, 8, 5], [7, 2, 2]]
+
+    visited = [[False for _ in range(N)] for _ in range(N)]
+
+    print("#{0} {1}".format(t+1, findMinSum()))
+    
