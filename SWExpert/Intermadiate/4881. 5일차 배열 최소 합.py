@@ -37,11 +37,27 @@ NxN 배열에 숫자가 들어있다. 한 줄에서 하나씩 N개의 숫자를 
 #2 14
 #3 9
 '''
-def findMinSum():
-    minsum, temp = 9 * N, 9 * N
-    if temp < minsum:
-        return minsum
-    
+'''
+def findMinSum(x, y):
+    m = 9 * N
+    result = m
+    dx = [1, 0]
+    dy = [1, 0, -1]
+    if 0 <= x < N and 0 <= y < N:
+        if visited[x][y] == False:
+            for i in range(x, N): visited[i][y] = True
+            for j in range(y, N): visited[x][j] = True
+
+            for ddx in dx:
+                for ddy in dy:
+                    if result <= m:
+                        m = result
+                        result = a[x][y] + findMinSum(x+ddx, y+ddy)
+                    else:
+                        result = a[x][y] + findMinSum(x+ddx, y+ddy)
+                    return result
+    else:
+        return 0
 
 T = 1 # int(input())
 for t in range(T):
@@ -51,7 +67,34 @@ for t in range(T):
     #     a.append(list(map(int, input().split())))
     a = [[2, 1, 2], [5, 8, 5], [7, 2, 2]]
 
-    visited = [[False for _ in range(N)] for _ in range(N)]
+    visited = [[False for i in range(N)] for j in range(N)]
+    print(findMinSum(0,0))
+    #print("#{0} {1}".format(t+1, findMinSum()))
+'''
 
-    print("#{0} {1}".format(t+1, findMinSum()))
-    
+# 4881 D2 배열 최소 합
+ 
+def dfs(idx, _sum):
+    global min_result
+    if idx == N:
+        if _sum < min_result:
+            min_result = _sum
+        return
+    #가지치기
+    if _sum >= min_result:
+        return
+    for i in range(N):
+        #갔던 세로줄은 사용불가하게 바꾸기
+        if use_check[i]:
+            use_check[i] = False
+            dfs(idx+1, _sum + map_list[idx][i])
+            use_check[i] = True
+ 
+T = int(input())
+for t in range(1, T+1):
+    N = int(input())
+    map_list = [list(map(int, input().split())) for _ in range(N)]
+    use_check = [True for _ in range(N)]
+    min_result = 987654321
+    dfs(0, 0)
+    print("#{} {}".format(t, min_result))
