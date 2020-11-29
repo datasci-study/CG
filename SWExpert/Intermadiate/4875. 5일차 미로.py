@@ -91,6 +91,7 @@ for t in range(T):
     maze = []
     for _ in range(N):
         maze.append(input())
+        # maze.append(list(int(input())))
     # 시작점(2) 찾기
     x, y = StartPoint(maze)
     # 미로에 1인 부분은 벽으로 미리 방문한 것(True)으로 가정하여 진행
