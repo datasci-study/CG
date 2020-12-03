@@ -45,3 +45,21 @@ NxN 크기의 미로에서 출발지 목적지가 주어진다.
 #2 5
 #3 0
 '''
+T = 1#int(input())
+
+for t in range(T):
+    N = 5 #int(input())
+    maze = []
+    for _ in range(N):
+        maze.append(list(map(int, input().split())))
+    
+    visited = [[False for i in range(N)] for j in range(N)]
+    
+    for i in range(N):
+        for j in range(N):
+            if maze[i][j] == 1:
+                visited[i][j] = True
+
+    print(visited)
+
+
