@@ -27,5 +27,6 @@ T = int(input())
 for t in range(T):
     N, M = list(map(int, input().split()))
     a = list(map(int, input().split()))
+    # 첫 요소를 떼어내어 맨 뒤에 붙인다.
     for i in range(M): a.append(a.pop(0))
     print("#{0} {1}".format(t+1, a[0]))
