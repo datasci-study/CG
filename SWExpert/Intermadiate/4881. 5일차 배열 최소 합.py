@@ -37,7 +37,7 @@ NxN 배열에 숫자가 들어있다. 한 줄에서 하나씩 N개의 숫자를 
 #2 14
 #3 9
 '''
-'''
+
 def findMinSum(x, y):
     m = 9 * N
     result = m
@@ -70,8 +70,8 @@ for t in range(T):
     visited = [[False for i in range(N)] for j in range(N)]
     print(findMinSum(0,0))
     #print("#{0} {1}".format(t+1, findMinSum()))
-'''
 
+# 
 # 4881 D2 배열 최소 합
  
 def dfs(idx, _sum):
@@ -95,6 +95,6 @@ for t in range(1, T+1):
     N = int(input())
     map_list = [list(map(int, input().split())) for _ in range(N)]
     use_check = [True for _ in range(N)]
-    min_result = 987654321
+    min_result = 987654321 
     dfs(0, 0)
     print("#{} {}".format(t, min_result))
