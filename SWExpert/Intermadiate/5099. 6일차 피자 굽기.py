@@ -30,16 +30,7 @@ N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈
 #2 8
 #3 6
 '''
-
-def theLastPizza():
-    pass
-
-T = 1 # int(input())
-
-for t in range(1, T+1):
-    N, M = 3, 5 # int(input().split())
-    a = [7, 2, 6, 5, 3]# list(map(int, input().split()))
-    # ci = a
+def theLastPizza(a):
     ci = {}
     for i in range(1, M+1):
         ci[i] = a[i-1]
@@ -54,11 +45,16 @@ for t in range(1, T+1):
             if oven[i] == 0:
                 oven.pop(i)
                 if ci:
-                    oven.update(ci[list(ci)[0]])
+                    oven[list(ci)[0]] = ci[list(ci)[0]]
+                    ci.pop(list(ci)[0])
                 if len(oven) == 1:
-                    result = list(oven)[0]
-                    break
+                    return list(oven)[0]
 
-    print("#{0} {1}".format(t, result))
-    
-    
+
+T = int(input())
+
+for t in range(1, T+1):
+    N, M = list(map(int, input().split()))
+    a = list(map(int, input().split()))
+
+    print("#{0} {1}".format(t, theLastPizza(a)))
