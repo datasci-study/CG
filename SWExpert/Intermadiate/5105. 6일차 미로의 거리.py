@@ -45,50 +45,51 @@ NxN 크기의 미로에서 출발지 목적지가 주어진다.
 #2 5
 #3 0
 '''
-def startoint(G):
-    global N
-    for i in range(N):
-        for j in range(N):
-            if G[i][j] == 2:
-                return i, j
+def IsSafe(y, x):
+    return 0 <= y < N and 0 <= x < N and (Maze[y][x] == 0 or Maze[y][x] == 3)
 
-def BFS(x, y):
-    count = 0
-    visited[x][y] = True
-    if maze[x][y] == 3:
-        # 목표지점을 찾으면 남은 지역 전부 TRUE로 바꿔서 종료
-        for i in range(N):
-            for j in range(N):
-                visited[i][j] = True
-        return count
+def BFS(start_y, start_x):
+    global D_result
+    Q.append((start_y, start_x))
+    visited.append((start_y, start_x))
 
-    for ddx, ddy in zip(dx, dy):
-        x_new = x + ddx
-        y_new = y + ddy
-        if (0 <= x_new < N) and (0 <= y_new < N):
-            if visited[x_new][y_new] == False:
-                count = 1
-                count += BFS(x_new, y_new)
-                return count
+    while Q:
+        start_y, start_x = Q.pop(0)
+        for dir in range(4):
+            NewY = start_y + dy[dir]
+            NewX = start_x + dx[dir]
+            if IsSafe(NewY, NewX) and (NewY, NewX) not in visited:
+                Q.append((NewY, NewX))
+                visited.append((NewY, NewX))
+                Distance[NewY][NewX] = Distance[start_y][start_x] + 1
+                if Maze[NewY][NewX] == 3:
+                    D_result = Distance[NewY][NewX] - 1
+                    return
+
+def startPoint(maze):
+    for y in range(N):
+        for x in range(N):
+            if Maze[y][x] == 2:
+                return y, x
 
 T = int(input())
-
-for t in range(T):
+for t in range(1, T+1):
     N = int(input())
-    maze = []
-    for _ in range(N):
-        maze.append(list(map(int, input())))
     
-    visited = [[False for i in range(N)] for j in range(N)]
+    # 미로 생성
+    Maze = [list(map(int, input())) for _ in range(N)]
+    # 방문 이력 생성
+    visited = [[0]*N for _ in range(N)]
     
-    # 벽(1) 정보를 가진 애들을 이미 방문한 것으로 가정하여 진행
-    for i in range(N):
-        for j in range(N):
-            if maze[i][j] == 1:
-                visited[i][j] = True
+    # 시작포인트 찾기
+    start_y, start_x = startPoint(Maze)
 
-    dx = [0, 0, 1, -1]
-    dy = [1, -1, 0, 0]
-    x, y = startoint(maze)
-    print("#{0} {1}".format(t+1, BFS(x, y) ))
-    
+    # 좌우상하 탐색
+    dx = [1, -1, 0, 0]
+    dy = [0, 0, -1, 1]
+
+    D_result = 0
+    Q = []
+    Distance = [[0]*N for _ in range(N)]
+    BFS(start_y, start_x)
+    print(f'#{t} {D_result}')
