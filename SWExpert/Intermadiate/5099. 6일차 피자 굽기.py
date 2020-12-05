@@ -49,15 +49,15 @@ for t in range(1, T+1):
         oven[i] = ci.pop(i)
     
     while oven:
-        for i in oven.keys():
+        for i in list(oven):
             oven[i] = oven[i]//2
             if oven[i] == 0:
                 oven.pop(i)
                 if ci:
-                    pass
-                    # oven.update()
+                    oven.update(ci[list(ci)[0]])
                 if len(oven) == 1:
-                    result = 1
+                    result = list(oven)[0]
+                    break
 
     print("#{0} {1}".format(t, result))
     
