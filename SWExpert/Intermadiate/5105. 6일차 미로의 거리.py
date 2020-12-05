@@ -53,24 +53,28 @@ def startoint(G):
                 return i, j
 
 def BFS(x, y):
-    global dx
-    global dy
-    global N
     count = 0
-    for ddx, ddy in zip(dx, dy):
-        x += ddx
-        y += ddy
-        if (0 <= x <= N) and (0 <= y <= N):
-            if visited[x][y] == False:
-                count += 1
-                visited[x][y] = True
-                BFS(x, y)
-    return count
+    visited[x][y] = True
+    if maze[x][y] == 3:
+        # 목표지점을 찾으면 남은 지역 전부 TRUE로 바꿔서 종료
+        for i in range(N):
+            for j in range(N):
+                visited[i][j] = True
+        return count
 
-T = 1 # int(input())
+    for ddx, ddy in zip(dx, dy):
+        x_new = x + ddx
+        y_new = y + ddy
+        if (0 <= x_new < N) and (0 <= y_new < N):
+            if visited[x_new][y_new] == False:
+                count = 1
+                count += BFS(x_new, y_new)
+                return count
+
+T = int(input())
 
 for t in range(T):
-    N = 5 #int(input())
+    N = int(input())
     maze = []
     for _ in range(N):
         maze.append(list(map(int, input())))
@@ -88,5 +92,3 @@ for t in range(T):
     x, y = startoint(maze)
     print("#{0} {1}".format(t+1, BFS(x, y) ))
     
-
-
