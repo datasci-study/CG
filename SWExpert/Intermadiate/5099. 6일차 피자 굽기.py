@@ -51,10 +51,10 @@ def theLastPizza(a):
                     return list(oven)[0]
 
 
-T = int(input())
+T = 1 #int(input())
 
 for t in range(1, T+1):
-    N, M = list(map(int, input().split()))
-    a = list(map(int, input().split()))
+    N, M = 3, 5 #list(map(int, input().split()))
+    a = [7, 2, 6, 5, 3] #list(map(int, input().split()))
 
     print("#{0} {1}".format(t, theLastPizza(a)))
