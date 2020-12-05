@@ -15,4 +15,50 @@ N개의 피자를 동시에 구울 수 있는 화덕이 있다. 피자는 치즈
 
 [출력]
 각 줄마다 "#T" (T는 테스트 케이스 번호)를 출력한 뒤, 번호를 출력한다.
+
+[입력 예]
+3
+3 5
+7 2 6 5 3
+5 10
+5 9 3 9 9 2 5 8 7 1
+5 10
+20 4 5 7 3 15 2 1 2 2
+
+[출력 예]
+#1 4
+#2 8
+#3 6
 '''
+
+def theLastPizza():
+    pass
+
+T = 1 # int(input())
+
+for t in range(1, T+1):
+    N, M = 3, 5 # int(input().split())
+    a = [7, 2, 6, 5, 3]# list(map(int, input().split()))
+    # ci = a
+    ci = {}
+    for i in range(1, M+1):
+        ci[i] = a[i-1]
+    
+    oven = {}
+    for i in range(1, N+1):
+        oven[i] = ci.pop(i)
+    
+    while oven:
+        for i in oven.keys():
+            oven[i] = oven[i]//2
+            if oven[i] == 0:
+                oven.pop(i)
+                if ci:
+                    pass
+                    # oven.update()
+                if len(oven) == 1:
+                    result = 1
+
+    print("#{0} {1}".format(t, result))
+    
+    
