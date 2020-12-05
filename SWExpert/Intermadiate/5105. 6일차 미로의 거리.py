@@ -45,21 +45,48 @@ NxN 크기의 미로에서 출발지 목적지가 주어진다.
 #2 5
 #3 0
 '''
-T = 1#int(input())
+def startoint(G):
+    global N
+    for i in range(N):
+        for j in range(N):
+            if G[i][j] == 2:
+                return i, j
+
+def BFS(x, y):
+    global dx
+    global dy
+    global N
+    count = 0
+    for ddx, ddy in zip(dx, dy):
+        x += ddx
+        y += ddy
+        if (0 <= x <= N) and (0 <= y <= N):
+            if visited[x][y] == False:
+                count += 1
+                visited[x][y] = True
+                BFS(x, y)
+    return count
+
+T = 1 # int(input())
 
 for t in range(T):
     N = 5 #int(input())
     maze = []
     for _ in range(N):
-        maze.append(list(map(int, input().split())))
+        maze.append(list(map(int, input())))
     
     visited = [[False for i in range(N)] for j in range(N)]
     
+    # 벽(1) 정보를 가진 애들을 이미 방문한 것으로 가정하여 진행
     for i in range(N):
         for j in range(N):
             if maze[i][j] == 1:
                 visited[i][j] = True
 
-    print(visited)
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
+    x, y = startoint(maze)
+    print("#{0} {1}".format(t+1, BFS(x, y) ))
+    
 
 
